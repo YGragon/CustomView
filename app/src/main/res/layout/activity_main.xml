@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="com.dongxi.customerview.MainActivity"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    >
+    <com.dongxi.customerview.view.TopBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        custom:leftText="Back"
+        custom:leftBackground="@mipmap/ic_launcher"
+        custom:leftTextColor="@color/colorAccent"
+        custom:rightBackground="@mipmap/ic_launcher"
+        custom:rightTextColor="@color/colorAccent"
+        custom:rightText="MORE"
+        custom:title="自定义标题"
+        custom:titleTextColor="@color/colorAccent"
+        custom:titleTextSize="10sp"
+        />
+
+    <com.dongxi.customerview.view.BlinkTextView
+        android:id="@+id/blinkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBar"
+        android:text="Hello World! Hello World!"/>
+
+    <com.dongxi.customerview.view.CircleProgressView
+        android:id="@+id/circleProgressView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/blinkTextView"
+        />
+    <com.dongxi.customerview.view.VolumeView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/circleProgressView"/>
+</RelativeLayout>
+
