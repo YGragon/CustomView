@@ -1,18 +1,22 @@
 package com.dongxi.customerview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.SeekBar;
 
+import com.dongxi.customerview.base.BaseActivity;
 import com.dongxi.customerview.view.CircleProgressView;
 import com.dongxi.customerview.view.TopBar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private TopBar mTopbar;
     private CircleProgressView mCircleProgressView;
     private SeekBar mSeekBar;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void rightClick() {
-                        startActivity(new Intent(MainActivity.this, ScrollerViewActivity.class));
+                        MainActivity.actionStart(MainActivity.this,"","");
+                        Log.w(TAG,"我是TAG");
+//                        startActivity(new Intent(MainActivity.this, ScrollerViewActivity.class));
                     }
 
                     @Override
@@ -38,11 +44,17 @@ public class MainActivity extends AppCompatActivity {
         // 控制topbar上组件的状态
         mTopbar.setButtomVisable(0, true);
         mTopbar.setButtomVisable(1, true);
-//        mTopbar.setButtomVisable(1, false);
 
         //圆形进度条
         mCircleProgressView = (CircleProgressView) findViewById(R.id.circleProgressView);
         mCircleProgressView.setSweepValue(50);//设置不同的弧度，注意不是角度.
 
+    }
+
+    public static void actionStart(Context context, String data1, String data2){
+        Intent intent = new Intent(context, ScrollerViewActivity.class);
+        intent.putExtra("param1",data1) ;
+        intent.putExtra("param2",data2) ;
+        context.startActivity(intent);
     }
 }
