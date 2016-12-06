@@ -1,7 +1,6 @@
 package com.dongxi.customerview.base;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.dongxi.customerview.present.ActivityCollector;
@@ -12,8 +11,8 @@ import com.dongxi.customerview.present.ActivityCollector;
 
 public class BaseActivity extends AppCompatActivity {
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ActivityCollector.addActivity(this);
     }
 

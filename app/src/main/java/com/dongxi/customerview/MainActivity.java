@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.SeekBar;
 
 import com.dongxi.customerview.base.BaseActivity;
+import com.dongxi.customerview.present.ActivityCollector;
 import com.dongxi.customerview.view.CircleProgressView;
 import com.dongxi.customerview.view.TopBar;
 
@@ -33,12 +34,12 @@ public class MainActivity extends BaseActivity {
                     public void rightClick() {
                         MainActivity.actionStart(MainActivity.this,"","");
                         Log.w(TAG,"我是TAG");
-//                        startActivity(new Intent(MainActivity.this, ScrollerViewActivity.class));
                     }
 
                     @Override
                     public void leftClick() {
                         ToastUtils.showShort(MainActivity.this,"Toast..left..");
+                        ActivityCollector.finishAll();
                     }
                 });
         // 控制topbar上组件的状态

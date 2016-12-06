@@ -19,6 +19,7 @@ public class ScrollerView extends ViewGroup {
     private Scroller mScroller;
     private int mLastY;
     private float mStart;
+    private boolean isMove = false ;
 
     public ScrollerView(Context context) {
         super(context);
@@ -151,5 +152,69 @@ public class ScrollerView extends ViewGroup {
             scrollTo(0, mScroller.getCurrY());
             postInvalidate();
         }
+    }
+
+    /**
+     * 事件拦截的核心方法
+     * false不拦截子View的点击事件，则子View可以响应相应的事件
+     * true拦截，不让子View相应相应的事件
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int y = (int) ev.getY();
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN://手指摁下
+                mLastY = y;
+                mStart = getScaleY();
+                isMove = false ;
+                break;
+            case MotionEvent.ACTION_MOVE://手指滑动,实现滚动
+                if (!mScroller.isFinished()){
+                    mScroller.abortAnimation();
+                }
+                int dy = mLastY - y;
+                if (getScrollY() < 0){
+                    dy = 0 ;
+                }
+                if (getScrollY() > getHeight() - mScreenHeight){
+                    dy = 0 ;
+                }
+                scrollBy(0,dy);//手指滑动到手指摁下到dy长度的位置
+                mLastY = y ;
+                isMove = true ;//则点击图片没用
+                break;
+            case MotionEvent.ACTION_UP://手指抬起，实现黏性
+                int dScrollY = checkAlignment();
+                if (dScrollY > 0){//向下滑动
+                    if (dScrollY < mScreenHeight / 3){
+                        mScroller.startScroll(0, getScrollY(), 0, -dScrollY);
+                    }else{
+                        mScroller.startScroll(0, getScrollY(), 0, mScreenHeight - dScrollY);
+                    }
+                }else {//向上滑动
+                    if (-dScrollY < mScreenHeight / 3) {
+                        mScroller.startScroll(
+                                0, getScrollY(),
+                                0, -dScrollY);
+                    } else {
+                        mScroller.startScroll(
+                                0, getScrollY(),
+                                0, -mScreenHeight - dScrollY);
+                    }
+                }
+                isMove = false ;
+                break;
+        }
+        postInvalidate();
+
+        return isMove;//则点击图片退出
+
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 }
