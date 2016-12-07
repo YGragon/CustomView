@@ -53,7 +53,7 @@ public class VolumeView extends View {
         mRectHeight = getHeight();
         mRectWidth = (int) (mWidth * 0.6 / mRectCount);
         mLinearGradient = new LinearGradient(0, 0, mRectWidth, mRectHeight,
-                Color.YELLOW, Color.BLUE, Shader.TileMode.CLAMP);
+                Color.YELLOW, Color.BLUE, Shader.TileMode.CLAMP);//颜色渐变
         mPaint.setShader(mLinearGradient);
     }
 
@@ -63,13 +63,13 @@ public class VolumeView extends View {
         for (int i = 0 ; i < mRectCount ; i++){
             mRandom = Math.random();
             float currentHeight = (float)( mRectHeight * mRandom );
-            canvas.drawRect(
+            canvas.drawRect(//绘制矩形
                     (float)(mWidth * 0.4 / 2  + mRectWidth * i + offset),
                     currentHeight,
                     (float)(mWidth * 0.4 / 2 + mRectWidth * (i + 1)),
                     mRectHeight,mPaint
             );
         }
-        postInvalidateDelayed(300);
+       postInvalidateDelayed(300);//延迟，模拟动态效果
     }
 }

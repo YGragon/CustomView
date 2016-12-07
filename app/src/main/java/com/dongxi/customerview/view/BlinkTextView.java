@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * 闪烁的TextView
- * 实现原理：利用Paint对象的Shader渲染器，通过蛇医一个不断变化的LinearGradient
+ * 实现原理：利用Paint对象的Shader渲染器，通过一个不断变化的LinearGradient
  *          并使用带有该属性的Paint对象来绘制要显示的文本
  */
 
